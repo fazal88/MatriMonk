@@ -1,26 +1,27 @@
 package com.androidvoyage.matrimonk.matchlist
 
-import android.annotation.SuppressLint
 import android.app.Application
 import android.util.Log
-import android.widget.Toast
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.androidvoyage.matrimonk.database.MatchItem
 import com.androidvoyage.matrimonk.database.MatchesDao
-import com.androidvoyage.matrimonk.database.ResponseResults
-import com.androidvoyage.matrimonk.matchlist.MatchesApi
-import com.androidvoyage.matrimonk.matchlist.MatchesApiService
 import kotlinx.coroutines.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class MatchListViewModel(
         private val database: MatchesDao,
         private val application: Application) : ViewModel() {
 
-    val matchList = database.getAll()
+    private val _matchList = MutableLiveData<List<MatchItem>>()
+
+    val matchList : LiveData<List<MatchItem>>
+    get() = _matchList
+
+    private val _errorMsg = MutableLiveData<String>("Loading...")
+
+    val errorMsg : LiveData<String>
+        get() = _errorMsg
 
     private var viewModelJob = Job()
 
@@ -34,49 +35,32 @@ class MatchListViewModel(
         uiScope.launch {
             var getMatchesDeferred = MatchesApi.retrofitService.getListMatches(10)
             try {
-                var listResult = getMatchesDeferred.await().results
-                Log.d("API", "onResponse: "+listResult.size)
+                val listResults = getMatchesDeferred.await().results
+                Log.d("API", "onResponse: "+listResults.size)
+                if(listResults.size>0){
+                    _matchList.value = listResults
+                    _errorMsg.value = ""
+                }else{
+                    _errorMsg.value = "No Data Available !"
+                }
             } catch (t: Throwable) {
                 Log.d("API", "onFail: "+t.localizedMessage)
+                _errorMsg.value = t.localizedMessage
             }
         }
     }
 
-    /*private val _navigateToProfileEdit = MutableLiveData<MatchItem>()
-    val navigateToProfileEdit
-        get() = _navigateToProfileEdit
-
-    fun onProfileClickToNavigate(profile: MatchItem) {
-        _navigateToProfileEdit.value = profile
-    }
-
-    fun onProfileEditNavigated() {
-        _navigateToProfileEdit.value = null
-    }
-
-    fun onProfileClickToDelete(it: Long) {
+    fun onProfileStatusUpdate(item: MatchItem, action: Int) {
         uiScope.launch {
-            deleteProfile(it)
+            updateStatus(item, action)
         }
     }
 
-    private suspend fun deleteProfile(it: Long) {
+    private suspend fun updateStatus(it: MatchItem, action: Int) {
         return withContext(Dispatchers.IO) {
-            return@withContext database.delete(it)
-        }
-    }*/
-
-    fun onProfileStatusUpdate(id: Long, action: String) {
-        uiScope.launch {
-            updateStatus(id, action)
-        }
-    }
-
-    private suspend fun updateStatus(it: Long, action: String) {
-        return withContext(Dispatchers.IO) {
-            val item = database.get(it)!!
-            /*item.isProfileActive = item.isProfileActive.not()*/
-            database.update(item)
+            val item = database.get(it.matchId!!)
+            /*item.isProfileActive = item.isProfileActive.not()*//*todo update status here*/
+            database.update(item!!)
             return@withContext
         }
     }

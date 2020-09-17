@@ -2,24 +2,39 @@ package com.androidvoyage.matrimonk.matchlist
 
 import android.annotation.SuppressLint
 import android.view.View
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
-import com.androidvoyage.matrimonk.R
+import androidx.recyclerview.widget.RecyclerView
 import com.androidvoyage.matrimonk.database.MatchItem
-import com.bumptech.glide.Glide
 
 
-/*
 @SuppressLint("SetTextI18n")
-@BindingAdapter("profileName")
-fun TextView.setProfileName(item: MatchItem) {
+@BindingAdapter("profileGender")
+fun TextView.setProfileGender(item: MatchItem) {
     item.let {
-        text = it.name?.title + it.name?.first + it.name?.last
+        text = it.gender
     }
 }
 
-@BindingAdapter("ProfileDetail")
+@BindingAdapter("submitList")
+fun bindRecyclerView(recyclerView: RecyclerView, list: List<MatchItem>?) {
+    val adapter = recyclerView.adapter as MatchListAdapter
+    adapter.submitList(list)
+}
+
+@BindingAdapter("errorText")
+fun TextView.setNoDataText(errorMsg: String?) {
+    errorMsg.let {
+        if (it!!.isEmpty()) {
+            visibility = View.GONE
+        } else {
+            text = it
+            visibility = View.VISIBLE
+        }
+    }
+}
+
+/*@BindingAdapter("ProfileDetail")
 fun TextView.setProfileDescription(item: MatchItem) {
     item.let {
         text = it.location?.city
