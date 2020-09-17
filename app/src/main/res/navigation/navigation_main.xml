@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/listFragment"
-        android:name="com.androidvoyage.matrimonk.ListFragment"
+        android:name="com.androidvoyage.matrimonk.matchlist.ListFragment"
         tools:layout="@layout/fragment_list"
         android:label="ListFragment" />
 

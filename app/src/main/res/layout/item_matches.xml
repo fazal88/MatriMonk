@@ -4,6 +4,14 @@
 
     <data>
 
+        <variable
+            name="match"
+            type="com.androidvoyage.matrimonk.database.MatchItem" />
+
+        <variable
+            name="clickListener"
+            type="com.androidvoyage.matrimonk.matchlist.MatchListAdapter.MatchClickListener" />
+
     </data>
 
     <androidx.cardview.widget.CardView
