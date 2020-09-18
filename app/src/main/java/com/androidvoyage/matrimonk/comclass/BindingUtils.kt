@@ -1,4 +1,4 @@
-package com.androidvoyage.matrimonk.matchlist
+package com.androidvoyage.matrimonk.comclass
 
 import android.annotation.SuppressLint
 import android.view.View
@@ -6,6 +6,7 @@ import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.androidvoyage.matrimonk.database.MatchItem
+import com.androidvoyage.matrimonk.matchlist.MatchListAdapter
 
 
 @SuppressLint("SetTextI18n")
