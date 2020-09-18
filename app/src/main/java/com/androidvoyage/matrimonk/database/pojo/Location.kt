@@ -10,8 +10,11 @@ class Location(
     var city: String? = "",
     var state: String? = "Maharashtra",
     var country: String? = "INDIA",
-    var postcode: String? = ""/*,
+    var postcode: String? = "",
+    @Embedded
     var street: Street? = Street(),
+    @Embedded
     var coordinates: Coordinates? = Coordinates(),
-    var timezone: Timezone? = Timezone()*/
+    @Embedded
+    var timezone: Timezone? = Timezone()
 ) : Parcelable
