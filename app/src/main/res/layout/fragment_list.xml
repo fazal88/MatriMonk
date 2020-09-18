@@ -15,23 +15,16 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <View
-            android:layout_width="0dp"
-            android:background="@color/colorPrimaryDark"
-            app:layout_constraintTop_toTopOf="parent"
-            android:elevation="4dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_height="64dp"/>
-
         <TextView
             android:id="@+id/tv_title"
-            android:layout_width="wrap_content"
-            android:layout_height="64dp"
+            android:layout_width="0dp"
+            android:layout_height="?actionBarSize"
             android:ellipsize="marquee"
             android:fadingEdge="horizontal"
             android:gravity="center_vertical"
+            android:background="@color/colorPrimaryDark"
             android:paddingStart="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
             android:elevation="4dp"
             android:paddingEnd="16dp"
             android:singleLine="true"
@@ -45,20 +38,22 @@
         <TextView
             android:id="@+id/tv_result"
             android:layout_width="0dp"
-            android:layout_height="64dp"
+            android:layout_height="wrap_content"
             android:ellipsize="marquee"
             android:fadingEdge="horizontal"
             android:elevation="4dp"
-            android:gravity="center_vertical|end"
+            android:gravity="center"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
             android:textColor="@color/offwhite"
             android:text="Swipe to load more matches"
             android:textSize="14sp"
-            app:errorText="@{viewModel.errorMsg}"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/tv_title"
-            app:layout_constraintTop_toTopOf="parent"/>
+            android:background="@color/colorPrimary"
+            app:layout_constraintTop_toBottomOf="@+id/tv_title"/>
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/swipe_new_matches"
@@ -67,7 +62,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:background="@color/offwhite"
-            app:layout_constraintTop_toBottomOf="@+id/tv_title"
+            app:layout_constraintTop_toBottomOf="@+id/tv_result"
             app:layout_constraintStart_toStartOf="parent">
 
             <androidx.recyclerview.widget.RecyclerView

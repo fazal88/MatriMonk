@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.androidvoyage.matrimonk.comclass.ComUtils
 import com.androidvoyage.matrimonk.comclass.MatchesApi
 import com.androidvoyage.matrimonk.database.MatchItem
 import com.androidvoyage.matrimonk.database.MatchesDao
@@ -19,7 +20,7 @@ class MatchListViewModel(
     val matchList: LiveData<List<MatchItem>>
         get() = _matchList
 
-    private val _errorMsg = MutableLiveData<String>("Swipe down to load new matches")
+    private val _errorMsg = MutableLiveData<String>("")
     val errorMsg: LiveData<String>
         get() = _errorMsg
 
@@ -37,9 +38,9 @@ class MatchListViewModel(
             val getMatchesDeferred = MatchesApi.retrofitService.getListMatches(10)
             try {
                 val listResults = getMatchesDeferred.await().results
-                if (listResults.size > 0) {
+                if (listResults.isNotEmpty()) {
                     saveList(listResults)
-                    _errorMsg.value = "Swipe down for new matches"
+                    _errorMsg.value = "New Matches"
                 } else {
                     _errorMsg.value = "No New Data !"
                 }
@@ -58,16 +59,16 @@ class MatchListViewModel(
         }
     }
 
-    fun onProfileStatusUpdate(item: MatchItem, action: Int) {
+    fun onProfileStatusUpdate(item: MatchItem, action: String) {
         uiScope.launch {
             updateStatus(item, action)
         }
     }
 
-    private suspend fun updateStatus(it: MatchItem, action: Int) {
+    private suspend fun updateStatus(it: MatchItem, action: String) {
         return withContext(Dispatchers.IO) {
             val item = database.get(it.matchId)
-            /*item.isProfileActive = item.isProfileActive.not()*//*todo update status here*/
+            item?.status = action
             database.update(item!!)
             return@withContext
         }
@@ -78,7 +79,7 @@ class MatchListViewModel(
         viewModelJob.cancel()
     }
 
-    fun setNoIternet() {
+    fun setNoInternet() {
         _errorMsg.value = "No Internet!"
     }
 

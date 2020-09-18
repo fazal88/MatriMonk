@@ -7,6 +7,12 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import kotlinx.android.parcel.Parcelize
 
+ enum class StatusMatch(val status : String) {
+         ACCEPT("Member Accepted"),
+         DECLINE("Member Declined"),
+         NOTA("None")
+ }
+
 @Parcelize
 @Entity(tableName = "matches_entry_table")
 data class MatchItem(
@@ -28,6 +34,9 @@ data class MatchItem(
 
         @ColumnInfo(name = "nat")
         var nat: String? = "",
+
+        @ColumnInfo(name = "status")
+        var status: String = StatusMatch.NOTA.status,
 
         @Embedded
         var name: Name? = Name(),

@@ -12,6 +12,7 @@ import com.androidvoyage.matrimonk.R
 import com.androidvoyage.matrimonk.comclass.ComUtils
 import com.androidvoyage.matrimonk.database.MatchItem
 import com.androidvoyage.matrimonk.database.MatchesItemDatabase
+import com.androidvoyage.matrimonk.database.StatusMatch
 import com.androidvoyage.matrimonk.databinding.FragmentListBinding
 
 class ListFragment : Fragment() {
@@ -33,8 +34,12 @@ class ListFragment : Fragment() {
         binding.viewModel = viewModel
 
         val adapter = MatchListAdapter(MatchListAdapter.MatchClickListener(
-            { matchAccepted: MatchItem -> viewModel.onProfileStatusUpdate(matchAccepted,1) },
-            { matchDeclined: MatchItem -> viewModel.onProfileStatusUpdate(matchDeclined,2) }
+            { matchAccepted: MatchItem ->
+                viewModel.onProfileStatusUpdate(matchAccepted, StatusMatch.ACCEPT.status)
+            },
+            { matchDeclined: MatchItem ->
+                viewModel.onProfileStatusUpdate(matchDeclined, StatusMatch.DECLINE.status)
+            }
         ))
         binding.rcvMatches.adapter = adapter
 
@@ -42,7 +47,7 @@ class ListFragment : Fragment() {
             if(ComUtils().isOnline(requireActivity())){
                 viewModel.getNewMatchesList()
             }else{
-                viewModel.setNoIternet()
+                viewModel.setNoInternet()
                 binding.swipeNewMatches.isRefreshing = false
             }
         }
@@ -51,6 +56,10 @@ class ListFragment : Fragment() {
             if (!it) {
                 binding.swipeNewMatches.isRefreshing = false
             }
+        })
+
+        viewModel.errorMsg.observe(viewLifecycleOwner, Observer {
+            ComUtils().showToast(requireActivity(),it)
         })
 
         return binding.root

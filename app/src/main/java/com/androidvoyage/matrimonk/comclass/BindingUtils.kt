@@ -8,6 +8,7 @@ import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.androidvoyage.matrimonk.R
 import com.androidvoyage.matrimonk.database.MatchItem
+import com.androidvoyage.matrimonk.database.StatusMatch
 import com.androidvoyage.matrimonk.matchlist.MatchListAdapter
 import com.bumptech.glide.Glide
 
@@ -32,7 +33,7 @@ fun TextView.setProfileAddress(item: MatchItem) {
 @BindingAdapter("profileGender")
 fun TextView.setProfileGender(item: MatchItem) {
     item.let {
-        isSelected = it.gender.equals("Male")
+        isSelected = it.gender?.length == 4
         text = it.gender?.capitalize()
     }
 }
@@ -67,6 +68,30 @@ fun TextView.setNoDataText(errorMsg: String?) {
         } else {
             text = it
             visibility = View.VISIBLE
+        }
+    }
+}
+
+@BindingAdapter("profileStatus")
+fun TextView.setProfileStatus(item: MatchItem) {
+    item.let {
+        if (it.status == StatusMatch.NOTA.status) {
+            visibility = View.INVISIBLE
+        } else {
+            text = item.status
+            isSelected = (it.status == StatusMatch.DECLINE.status)
+            visibility = View.VISIBLE
+        }
+    }
+}
+
+@BindingAdapter("profileAction")
+fun TextView.setProfileAction(item: MatchItem) {
+    item.let {
+        if (it.status == StatusMatch.NOTA.status) {
+            visibility = View.VISIBLE
+        } else {
+            visibility = View.INVISIBLE
         }
     }
 }
