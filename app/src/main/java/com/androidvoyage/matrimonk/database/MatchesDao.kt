@@ -6,7 +6,7 @@ import androidx.room.*
 @Dao
 interface MatchesDao {
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun add(match : MatchItem)
 
     @Update
@@ -21,6 +21,9 @@ interface MatchesDao {
     @Query("SELECT * FROM matches_entry_table ORDER BY matchId DESC")
     fun getAll(): LiveData<List<MatchItem>>
 
+    @Query("SELECT * FROM matches_entry_table ORDER BY matchId DESC")
+    fun getList(): List<MatchItem>
+
     @Delete
     fun delete(match : MatchItem)
 
@@ -29,5 +32,8 @@ interface MatchesDao {
 
     @Query("DELETE FROM matches_entry_table")
     fun deleteAll()
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun saveAll(listResults: List<MatchItem>)
 
 }

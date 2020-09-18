@@ -1,4 +1,4 @@
-package com.androidvoyage.matrimonk.matchlist
+package com.androidvoyage.matrimonk.comclass
 
 import com.androidvoyage.matrimonk.database.ResponseResults
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -22,15 +23,175 @@
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="8dp"
         app:cardBackgroundColor="@color/colorWhite"
-        app:cardCornerRadius="16dp">
+        app:cardCornerRadius="16dp"
+        app:cardElevation="4dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:minHeight="120dp">
+            android:layout_height="wrap_content">
 
+            <ImageView
+                android:id="@+id/iv_profile"
+                profilePic="@{match}"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:background="@color/colorBlack"
+                android:contentDescription="@string/cd_profile_pic"
+                android:minHeight="480dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_holder"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@drawable/back_shadow_down"
+                app:layout_constraintBottom_toTopOf="@+id/tv_status"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tv_name" />
+
+            <TextView
+                android:id="@+id/tv_status"
+                android:layout_width="0dp"
+                android:layout_height="?actionBarSize"
+                android:background="@color/color_primary_accent"
+                android:gravity="center"
+                android:textColor="@color/colorWhite"
+                android:textSize="18sp"
+                android:textStyle="bold|italic"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/iv_profile"
+                app:profileStatus="@{match}"
+                tools:text="You accepted this profile"
+                tools:visibility="invisible" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="0dp"
+                android:layout_height="?actionBarSize"
+                android:layout_margin="16dp"
+                android:background="@drawable/back_round_primary"
+                android:backgroundTint="@color/colorAccept"
+                android:elevation="4dp"
+                android:gravity="center"
+                android:onClick="@{()-> clickListener.onAccept(match)}"
+                android:text="@string/str_accept"
+                android:textAllCaps="true"
+                android:textColor="@color/colorWhite"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/textView"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:profileAction="@{match}" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="0dp"
+                android:layout_height="?actionBarSize"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/back_round_primary"
+                android:backgroundTint="@color/colorAccent"
+                android:elevation="4dp"
+                android:gravity="center"
+                android:onClick="@{() -> clickListener.onDecline(match)}"
+                android:text="@string/str_decline"
+                android:textAllCaps="true"
+                android:textColor="@color/colorWhite"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/textView2"
+                app:profileAction="@{match}" />
+
+            <TextView
+                android:id="@+id/tv_address"
+                profileAddress="@{match}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:drawablePadding="8dp"
+                android:text="@string/str_address"
+                android:textColor="@color/colorWhite"
+                app:drawableStartCompat="@drawable/ic_pin"
+                app:layout_constraintBottom_toTopOf="@+id/textView2"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_country"
+                profileCountry="@{match}"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="16dp"
+                android:drawablePadding="8dp"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:textAllCaps="true"
+                android:textColor="@color/colorWhite"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@id/tv_address"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tv_address"
+                tools:text="INDIA" />
+
+            <TextView
+                android:id="@+id/tv_gender"
+                profileGender="@{match}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:drawablePadding="8dp"
+                android:textColor="@color/colorWhite"
+                app:drawableStartCompat="@drawable/ic_gender"
+                app:layout_constraintBottom_toTopOf="@+id/tv_address"
+                app:layout_constraintStart_toStartOf="@+id/tv_address"
+                tools:text="Male" />
+
+            <TextView
+                android:id="@+id/tv_age"
+                profileAge="@{match}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginBottom="8dp"
+                android:drawablePadding="8dp"
+                android:textColor="@color/colorWhite"
+                app:drawableStartCompat="@drawable/ic_age"
+                app:layout_constraintBottom_toTopOf="@+id/tv_address"
+                app:layout_constraintStart_toEndOf="@+id/tv_gender"
+                tools:text="27 years" />
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="8dp"
+                android:drawablePadding="8dp"
+                android:paddingTop="32dp"
+                android:textColor="@color/colorWhite"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:drawableStartCompat="@drawable/ic_secure"
+                app:layout_constraintBottom_toTopOf="@+id/tv_age"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/tv_address"
+                app:profileName="@{match}"
+                tools:text="Dr. Fazal Shaikh" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>
+
 </layout>
