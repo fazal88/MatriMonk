@@ -4,7 +4,6 @@ import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.androidvoyage.matrimonk.comclass.ComUtils
 import com.androidvoyage.matrimonk.comclass.MatchesApi
 import com.androidvoyage.matrimonk.database.MatchItem
 import com.androidvoyage.matrimonk.database.MatchesDao
@@ -71,6 +70,18 @@ class MatchListViewModel(
             item?.status = action
             database.update(item!!)
             return@withContext
+        }
+    }
+
+    fun clearAll() {
+        uiScope.launch {
+            deleteAll()
+        }
+    }
+
+    private suspend fun deleteAll() {
+        return withContext(Dispatchers.IO) {
+            database.deleteAll()
         }
     }
 

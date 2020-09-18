@@ -117,3 +117,14 @@ fun ImageView.setProfileImage(item: MatchItem) {
         Glide.with(this).load(link).placeholder(R.drawable.ic_holder).into(this)
     }
 }
+
+@BindingAdapter("clearAllVisibity")
+fun View.setClearAllVisibility(size: Int) {
+    size.let {
+        visibility = if (size == 0) {
+            View.INVISIBLE
+        } else {
+            View.VISIBLE
+        }
+    }
+}

@@ -19,51 +19,64 @@
             android:id="@+id/tv_title"
             android:layout_width="0dp"
             android:layout_height="?actionBarSize"
+            android:background="@color/colorPrimaryDark"
             android:ellipsize="marquee"
             android:fadingEdge="horizontal"
             android:gravity="center_vertical"
-            android:background="@color/colorPrimaryDark"
             android:paddingStart="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:elevation="4dp"
             android:paddingEnd="16dp"
             android:singleLine="true"
             android:text="MatriMonk"
             android:textColor="@color/colorWhite"
             android:textSize="24sp"
             android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_clear_all"
+            android:layout_width="wrap_content"
+            android:layout_height="?actionBarSize"
+            android:gravity="center"
+            android:onClick="@{()->viewModel.clearAll()}"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:text="Clear All"
+            android:textColor="@color/colorWhite"
+            android:textSize="16sp"
+            app:clearAllVisibity="@{viewModel.matchList.size()}"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tv_result"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
             android:ellipsize="marquee"
             android:fadingEdge="horizontal"
-            android:elevation="4dp"
             android:gravity="center"
-            android:paddingTop="4dp"
-            android:paddingBottom="4dp"
             android:paddingStart="16dp"
+            android:paddingTop="4dp"
             android:paddingEnd="16dp"
+            android:paddingBottom="4dp"
+            android:text="Swipe down to load new Matches"
             android:textColor="@color/offwhite"
-            android:text="Swipe to load more matches"
             android:textSize="14sp"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:background="@color/colorPrimary"
-            app:layout_constraintTop_toBottomOf="@+id/tv_title"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_title" />
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/swipe_new_matches"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:background="@color/offwhite"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:background="@color/offwhite"
-            app:layout_constraintTop_toBottomOf="@+id/tv_result"
-            app:layout_constraintStart_toStartOf="parent">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_result">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rcv_matches"
