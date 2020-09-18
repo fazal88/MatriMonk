@@ -58,7 +58,7 @@ class MatchListViewModel(
 
     private suspend fun updateStatus(it: MatchItem, action: Int) {
         return withContext(Dispatchers.IO) {
-            val item = database.get(it.matchId!!)
+            val item = database.get(it.matchId)
             /*item.isProfileActive = item.isProfileActive.not()*//*todo update status here*/
             database.update(item!!)
             return@withContext

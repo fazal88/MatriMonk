@@ -21,6 +21,9 @@ interface MatchesDao {
     @Query("SELECT * FROM matches_entry_table ORDER BY matchId DESC")
     fun getAll(): LiveData<List<MatchItem>>
 
+    @Query("SELECT * FROM matches_entry_table ORDER BY matchId DESC")
+    fun getList(): List<MatchItem>
+
     @Delete
     fun delete(match : MatchItem)
 
