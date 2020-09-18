@@ -19,7 +19,7 @@ class MatchListViewModel(
     val matchList: LiveData<List<MatchItem>>
         get() = _matchList
 
-    private val _errorMsg = MutableLiveData<String>("Swipe to load new matches")
+    private val _errorMsg = MutableLiveData<String>("Swipe down to load new matches")
     val errorMsg: LiveData<String>
         get() = _errorMsg
 
@@ -39,7 +39,7 @@ class MatchListViewModel(
                 val listResults = getMatchesDeferred.await().results
                 if (listResults.size > 0) {
                     saveList(listResults)
-                    _errorMsg.value = "Swipe to load new matches"
+                    _errorMsg.value = "Swipe down for new matches"
                 } else {
                     _errorMsg.value = "No New Data !"
                 }
