@@ -13,7 +13,7 @@ class MatchListViewModel(
         private val database: MatchesDao,
         private val application: Application) : ViewModel() {
 
-    private val _matchList = MutableLiveData<List<MatchItem>>()
+    private val _matchList = database.getAll()
 
     val matchList : LiveData<List<MatchItem>>
     get() = _matchList
@@ -38,7 +38,8 @@ class MatchListViewModel(
                 val listResults = getMatchesDeferred.await().results
                 Log.d("API", "onResponse: "+listResults.size)
                 if(listResults.size>0){
-                    _matchList.value = listResults
+                    /*_matchList.value = listResults*/
+                    saveList(listResults)
                     _errorMsg.value = ""
                 }else{
                     _errorMsg.value = "No Data Available !"
@@ -47,6 +48,13 @@ class MatchListViewModel(
                 Log.d("API", "onFail: "+t.localizedMessage)
                 _errorMsg.value = t.localizedMessage
             }
+        }
+    }
+
+    private suspend fun saveList(listResults: List<MatchItem>) {
+        return withContext(Dispatchers.IO){
+            database.saveAll(listResults)
+            return@withContext
         }
     }
 

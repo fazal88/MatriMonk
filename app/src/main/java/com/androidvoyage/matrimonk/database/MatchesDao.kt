@@ -6,7 +6,7 @@ import androidx.room.*
 @Dao
 interface MatchesDao {
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun add(match : MatchItem)
 
     @Update
@@ -32,5 +32,8 @@ interface MatchesDao {
 
     @Query("DELETE FROM matches_entry_table")
     fun deleteAll()
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun saveAll(listResults: List<MatchItem>)
 
 }

@@ -37,7 +37,7 @@
                 android:layout_height="0dp"
                 android:gravity="center"
                 tools:text="Gender"
-                app:profileGender="@{match}"
+                app:profileName="@{match}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

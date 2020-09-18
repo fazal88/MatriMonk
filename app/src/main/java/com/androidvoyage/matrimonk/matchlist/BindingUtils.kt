@@ -9,10 +9,10 @@ import com.androidvoyage.matrimonk.database.MatchItem
 
 
 @SuppressLint("SetTextI18n")
-@BindingAdapter("profileGender")
-fun TextView.setProfileGender(item: MatchItem) {
+@BindingAdapter("profileName")
+fun TextView.setProfileName(item: MatchItem) {
     item.let {
-        text = it.gender
+        text = it.name?.title+it.name?.first+it.name?.last
     }
 }
 
