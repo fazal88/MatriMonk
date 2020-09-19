@@ -33,6 +33,12 @@ class ListFragment : Fragment() {
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
 
+        initViews()
+
+        return binding.root
+    }
+
+    private fun initViews() {
         val adapter = MatchListAdapter(MatchListAdapter.MatchClickListener(
             { matchAccepted: MatchItem ->
                 viewModel.onProfileStatusUpdate(matchAccepted, StatusMatch.ACCEPT.status)
@@ -52,16 +58,8 @@ class ListFragment : Fragment() {
             }
         }
 
-        viewModel.isRefreshing.observe(viewLifecycleOwner, Observer {
-            if (!it) {
-                binding.swipeNewMatches.isRefreshing = false
-            }
-        })
-
-        viewModel.errorMsg.observe(viewLifecycleOwner, Observer {
+        viewModel.errorMsg.observe(viewLifecycleOwner, {
             ComUtils().showToast(requireActivity(),it)
         })
-
-        return binding.root
     }
 }

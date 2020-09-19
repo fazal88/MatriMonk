@@ -26,7 +26,7 @@ private val retrofit = Retrofit.Builder()
 interface MatchesApiService{
 
     @GET("/api/")
-    fun getListMatches(@Query("results") itemPerPage : Int): Deferred<ResponseResults>
+    fun getListMatchesAsync(@Query("results") itemPerPage : Int): Deferred<ResponseResults>
 }
 
 object MatchesApi {

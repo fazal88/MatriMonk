@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.androidvoyage.matrimonk.R
 import com.androidvoyage.matrimonk.comclass.MatchesApi
 import com.androidvoyage.matrimonk.database.MatchItem
 import com.androidvoyage.matrimonk.database.MatchesDao
@@ -19,11 +20,11 @@ class MatchListViewModel(
     val matchList: LiveData<List<MatchItem>>
         get() = _matchList
 
-    private val _errorMsg = MutableLiveData<String>("")
+    private val _errorMsg = MutableLiveData<String>()
     val errorMsg: LiveData<String>
         get() = _errorMsg
 
-    private val _isRefreshing = MutableLiveData<Boolean>(false)
+    private val _isRefreshing = MutableLiveData(false)
     val isRefreshing: LiveData<Boolean>
         get() = _isRefreshing
 
@@ -34,18 +35,18 @@ class MatchListViewModel(
     fun getNewMatchesList() {
         uiScope.launch {
             _isRefreshing.value = true
-            val getMatchesDeferred = MatchesApi.retrofitService.getListMatches(10)
+            val getMatchesDeferred = MatchesApi.retrofitService.getListMatchesAsync(10)
             try {
                 val listResults = getMatchesDeferred.await().results
                 if (listResults.isNotEmpty()) {
                     saveList(listResults)
-                    _errorMsg.value = "New Matches"
+                    _errorMsg.value = application.getString(R.string.str_new_matches)
                 } else {
-                    _errorMsg.value = "No New Data !"
+                    _errorMsg.value = application.getString(R.string.str_no_new_data)
                 }
                 _isRefreshing.value = false
             } catch (t: Throwable) {
-                _errorMsg.value = "Oops! Please try again."
+                _errorMsg.value = application.getString(R.string.str_error_api)
                 _isRefreshing.value = false
             }
         }
@@ -91,7 +92,7 @@ class MatchListViewModel(
     }
 
     fun setNoInternet() {
-        _errorMsg.value = "No Internet!"
+        _errorMsg.value = application.getString(R.string.str_no_internet)
     }
 
 }

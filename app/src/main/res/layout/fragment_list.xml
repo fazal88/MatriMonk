@@ -74,6 +74,7 @@
             android:id="@+id/swipe_new_matches"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            app:setRefreshFinished="@{viewModel.isRefreshing}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
