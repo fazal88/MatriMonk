@@ -11,6 +11,8 @@ import com.androidvoyage.matrimonk.R
 
 
 class ComUtils {
+
+    //To check if device has internet connectivity
     fun isOnline(activity: Activity): Boolean {
         val connMgr = activity.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val networkInfo = connMgr.activeNetworkInfo
@@ -21,6 +23,7 @@ class ComUtils {
     }
 
 
+    //Show custom toast as per our app
     fun showToast(activity: Activity, msg: String) {
         val inflater = activity.layoutInflater
         val view: View = inflater.inflate(
@@ -28,7 +31,7 @@ class ComUtils {
             activity.findViewById(R.id.custom_toast_container)
         )
         val tvToast: TextView = view.findViewById(R.id.tv_toast)
-        tvToast.isSelected = msg != "New Matches"
+        tvToast.isSelected = msg != activity.getString(R.string.str_new_matches)
         tvToast.setText(msg)
         val toast = Toast(activity)
         toast.duration = Toast.LENGTH_SHORT

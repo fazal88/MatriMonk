@@ -76,7 +76,6 @@ class Id(
         var value: String? = ""
 ) : Parcelable
 
-
 @Parcelize
 class Location(
         var city: String? = "",
@@ -109,7 +108,6 @@ data class Name(
         var last: String? = ""
 ) : Parcelable
 
-
 @Parcelize
 class Picture(
         var large: String? = "",
@@ -135,9 +133,24 @@ class Timezone(
         var description: String? = ""
 ) : Parcelable
 
-
 @Parcelize
 class Coordinates(
         var latitude: String? = "",
         var longitude: String? = ""
+) : Parcelable
+
+@Parcelize
+data class ResponseResults(
+        val results: List<MatchItem>,
+        val info: Info
+
+) : Parcelable
+
+@Parcelize
+data class Info(
+        var seed: String = "",
+        var results: Int = 0,
+        var page: Int = 0,
+        var version: String = ""
+
 ) : Parcelable

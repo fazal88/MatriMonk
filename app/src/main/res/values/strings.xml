@@ -8,4 +8,8 @@
     <string name="cd_profile_pic">Profile Picture</string>
     <string name="str_accept">Accept</string>
     <string name="str_decline">Decline</string>
+    <string name="str_new_matches">New Matches</string>
+    <string name="str_no_new_data">No New Data!</string>
+    <string name="str_error_api">Oops! Please try again.</string>
+    <string name="str_no_internet">No Internet!</string>
 </resources>
