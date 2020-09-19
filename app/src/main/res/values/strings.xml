@@ -4,7 +4,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="str_address">Mumbai, Maharashtra</string>
     <string name="str_clear_all">Clear All</string>
-    <string name="str_load_new">Swipe down to load new Matches</string>
+    <string name="str_load_new">Pull down to load new Matches!</string>
     <string name="cd_profile_pic">Profile Picture</string>
     <string name="str_accept">Accept</string>
     <string name="str_decline">Decline</string>
