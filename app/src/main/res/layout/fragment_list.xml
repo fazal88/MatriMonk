@@ -13,52 +13,35 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimaryDark">
 
         <TextView
             android:id="@+id/tv_title"
-            android:layout_width="0dp"
-            android:layout_height="?actionBarSize"
-            android:background="@color/colorPrimaryDark"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableEnd="@drawable/ic_wedding_rings"
+            android:drawablePadding="8dp"
             android:ellipsize="marquee"
             android:fadingEdge="horizontal"
             android:gravity="center_vertical"
-            android:drawablePadding="8dp"
-            android:drawableStart="@drawable/ic_wedding_rings"
             android:paddingStart="16dp"
+            android:paddingTop="8dp"
             android:paddingEnd="16dp"
             android:singleLine="true"
             android:text="@string/app_name"
             android:textColor="@color/colorWhite"
             android:textSize="24sp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/tv_clear_all"
-            android:layout_width="wrap_content"
-            android:layout_height="?actionBarSize"
-            android:gravity="center"
-            android:onClick="@{()->viewModel.clearAll()}"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
-            android:text="@string/str_clear_all"
-            android:textColor="@color/colorWhite"
-            android:textSize="16sp"
-            app:clearAllVisibity="@{viewModel.matchList.size()}"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tv_result"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:background="@color/colorPrimary"
             android:ellipsize="marquee"
             android:fadingEdge="horizontal"
-            android:gravity="center"
             android:paddingStart="16dp"
             android:paddingTop="4dp"
             android:paddingEnd="16dp"
@@ -70,15 +53,33 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_title" />
 
+        <TextView
+            android:id="@+id/tv_clear_all"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:gravity="center"
+            android:onClick="@{()->viewModel.clearAll()}"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:text="@string/str_clear_all"
+            android:textColor="@color/colorWhite"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:clearAllVisibity="@{viewModel.matchList.size()}"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_result"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/swipe_new_matches"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:setRefreshFinished="@{viewModel.isRefreshing}"
+            android:background="@color/offwhite"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_result">
+            app:layout_constraintTop_toBottomOf="@+id/tv_result"
+            app:setRefreshFinished="@{viewModel.isRefreshing}">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rcv_matches"
@@ -92,6 +93,16 @@
                 tools:listitem="@layout/item_matches" />
 
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="8dp"
+            android:background="@drawable/back_shadow_down"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/swipe_new_matches" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
