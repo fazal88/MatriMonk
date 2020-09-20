@@ -48,7 +48,7 @@
             <View
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:background="@drawable/back_shadow_down"
+                android:background="@drawable/back_shadow_up"
                 app:layout_constraintBottom_toTopOf="@+id/tv_status"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
